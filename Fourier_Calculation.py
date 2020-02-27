@@ -11,7 +11,6 @@ from scipy.integrate import quad
 
 
 def create_close_loop(image_name, level=[200]):
-    # Prepare Plot
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))
     ax[0].set_aspect('equal', 'datalim')
     ax[1].set_aspect('equal', 'datalim')
@@ -19,7 +18,6 @@ def create_close_loop(image_name, level=[200]):
     ax[1].set_title('After Centered')
     a = image_name.split(".")[0]
 
-    # read image to array, then get image border with contour
     if image_name.lower().endswith(('.svg')):
         drawing = svg2rlg(image_name)
 
@@ -29,18 +27,15 @@ def create_close_loop(image_name, level=[200]):
         im = array(Image.open(image_name).convert('L'))
     contour_plot = ax[0].contour(im, levels=level, colors='black', origin='image')
 
-    # Get Contour Path and create lookup-table
     contour_path = contour_plot.collections[0].get_paths()[0]
     x_table, y_table = contour_path.vertices[:, 0], contour_path.vertices[:, 1]
     time_table = np.linspace(0, 2*pi, len(x_table))
 
-    # Simple method to center the image
     x_table = x_table - min(x_table)
     y_table = y_table - min(y_table)
     x_table = x_table - max(x_table) / 2
     y_table = y_table - max(y_table) / 2
 
-    # Visualization
     ax[1].plot(x_table, y_table, c='blue')
     
 
@@ -72,7 +67,6 @@ def visualize(x_DFT, y_DFT, coef, space, fig_lim,title):
     plt.title(r'%s($_{Rousan}$)'%(title))
     ax.set_aspect('equal')
 
-    # Initialize
     line = plt.plot([], [], c='blue', linewidth=1.5)[0]
 
     radius = [plt.plot([], [],c='green', linewidth=0.5, marker='o', markersize=1)[0] for _ in range(2 * order + 1)]
@@ -94,9 +88,7 @@ def visualize(x_DFT, y_DFT, coef, space, fig_lim,title):
         return idx    
     
     def animate(i):
-        # animate lines
         line.set_data(x_DFT[:i], y_DFT[:i])
-        # animate circles
         r = [np.linalg.norm(coef[j]) for j in range(len(coef))]
         pos = coef[order]
         c = update_c(coef, i / len(space) * 2*pi)
@@ -109,6 +101,5 @@ def visualize(x_DFT, y_DFT, coef, space, fig_lim,title):
             circle.set_data(x, y)
             pos = new_pos
                 
-    # Animation
     ani = animation.FuncAnimation(fig, animate, frames=len(space), interval=7)
     return ani
