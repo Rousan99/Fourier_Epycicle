@@ -15,3 +15,6 @@ After this , all is done.<br/>
 Now just download a image(It would be helpful if the image is a single body one and it's background is white).
 Save it in the same file as Fourier_Calculation.py file, along with your working file.
 Now just compile the code.(For command-prompt and Terminal user , It is very easy).
+
+![FourierOfJoker](https://user-images.githubusercontent.com/51227331/75437398-246a8980-597c-11ea-9de2-6406431cc638.png)
+
