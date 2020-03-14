@@ -13,6 +13,8 @@ ax.set_aspect('equal', 'datalim')
 xmin, xmax = xlim()
 ymin, ymax = ylim()
 anim = visualize(x_DFT, y_DFT, coef, space, [xmin, xmax, ymin, ymax],'T-Rex')
-Writer = animation.writers['ffmpeg']
-writer = Writer(fps=30)
-anim.save('rex.mp4',writer=writer, dpi=150)
+#Writer = animation.writers['ffmpeg']
+#writer = Writer(fps=30)
+#anim.save('rex.mp4',writer=writer, dpi=150)
+#Previous 3 are comment-out as all people don't have ffmpeg
+plt.show()
